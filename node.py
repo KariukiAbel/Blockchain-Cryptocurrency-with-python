@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from blockchain import Blockchain
 
@@ -62,13 +62,12 @@ def get_balance():
             'message':'Loading balance failed.',
             'wallet set up':wallet.public_key != None
         }
-        return jsonify(response), 500
-    
+        return jsonify(response), 500  
 
 
 @app.route('/', methods=['GET'])
 def get_ui():
-    return 'This works'
+    return send_from_directory('ui','node.html')
 
 
 @app.route('/transaction', methods=['POST'])
